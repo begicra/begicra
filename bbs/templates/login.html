@@ -6,5 +6,23 @@
 </head>
 <body>
   <h1>ログイン</h1>
+  <% if (errors) { %>
+    <ul>
+    <% for (const e of errors) { %>
+      <li><%= e %></li>
+    <% } %>
+    </ul>
+  <% } %>
+  <form method="POST">
+    <div>
+      <label>Login ID: <input type="text" name="loginId" value="<%= loginId %>"></label>
+    </div>
+    <div>
+      <label>Password: <input type="password" name="password"></label>
+    </div>
+    <div>
+      <button type="submit">ログイン</button>
+    </div>
+  </form>
 </body>
 </html>
