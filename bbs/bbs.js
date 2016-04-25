@@ -7,9 +7,12 @@ const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const router = express.Router();
 const Database = require('./database');
+const Authentication = require('./authentication');
 
 const db = new Database();
 db.initialize();
+
+const authentication = new Authentication(db);
 
 function validateAuthentication(req, res, next) {
   if(req.session.user) {
@@ -48,21 +51,22 @@ router
     };
 
     // ユーザー名とパスワードを確認
-    db.each(`select * from users where name = '${input.loginId}' and password = '${input.password}'`)
-      .then(rows => {
-        if (rows.length > 0) {
-          req.session.user = {
-            name: input.loginId
-          };
+    authentication.validate(input.loginId, input.password)
+      .then(() => {
+        req.session.user = {
+          name: input.loginId
+        };
 
-          res.redirect('/bbs');
-        } else {
-          input.errors.push('Login ID または Password が異なります')
+        res.redirect('/bbs');
+      })
+      .catch(error => {
+        console.log(error);
 
-          const file = fs.readFileSync(path.join(__dirname, 'templates/login.html'), 'utf8');
-          const template = _.template(file);
-          res.send(template(input));
-        }
+        input.errors.push('Login ID または Password が異なります')
+
+        const file = fs.readFileSync(path.join(__dirname, 'templates/login.html'), 'utf8');
+        const template = _.template(file);
+        res.send(template(input));
       });
   });
 router.use('/', express.static(path.join(__dirname, 'static')));
