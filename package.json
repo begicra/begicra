@@ -4,6 +4,7 @@
   "description": "クラッキングを簡単に体験できるアプリ",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -11,5 +12,8 @@
     "examination"
   ],
   "author": "Tomo Masakura <tomo.masakura@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "express": "^4.13.4"
+  }
 }
