@@ -52,10 +52,8 @@ router
 
     // ユーザー名とパスワードを確認
     authentication.validate(input.loginId, input.password)
-      .then(() => {
-        req.session.user = {
-          name: input.loginId
-        };
+      .then(user => {
+        req.session.user = user;
 
         res.redirect('/bbs');
       })
