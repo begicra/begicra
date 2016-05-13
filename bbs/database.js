@@ -46,7 +46,7 @@ class Database {
         if (error) {
           reject(error);
         } else {
-          resolve(rows)
+          resolve(rows);
         }
       });
     });
