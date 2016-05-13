@@ -7,4 +7,3 @@ const app = express();
 app.use('/bbs', bbs);
 app.use('/', dashboard);
 app.listen(3000);
-

@@ -18,7 +18,7 @@ function validateAuthentication(req, res, next) {
   if(req.session.user) {
     next();
   } else {
-    res.redirect('login');
+    res.redirect('/bbs/login');
   }
 }
 
@@ -62,7 +62,7 @@ router
       .catch(error => {
         console.log(error);
 
-        input.errors.push('Login ID または Password が異なります')
+        input.errors.push('Login ID または Password が異なります');
 
         const file = fs.readFileSync(path.join(__dirname, 'templates/login.html'), 'utf8');
         const template = _.template(file);

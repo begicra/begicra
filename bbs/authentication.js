@@ -5,7 +5,8 @@ class Authentication {
     this.db_ = db;
   }
   validate(loginId, password) {
-    return this.db_.each(`select * from users where name = '${loginId}' and password = '${password}'`)
+    const sql = `select * from users where name = '${loginId}' and password = '${password}'`;
+    return this.db_.each(sql)
       .then(rows => {
         console.log(rows);
         if (rows.length <= 0) {
