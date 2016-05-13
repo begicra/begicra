@@ -4,28 +4,29 @@ const sqlite3 = require('sqlite3').verbose();
 
 class Database {
   constructor() {
-    this.db_ = new sqlite3.Database(':memory:');
+    this.db = new sqlite3.Database(':memory:');
   }
 
   initialize() {
+    const run = sql => () => this.run(sql);
+
     return Promise.resolve()
-      .then(() => this.run('create table users(id integer primary key autoincrement, name, password)'))
-      .then(() => this.run('create table posts(id integer primary key autoincrement, context)'))
-      .then(() => this.run('insert into users(name, password) values(\'admin\', \'admin\')'))
-      .then(() => this.run('insert into users(name, password) values(\'user1\', \'user1\')'))
-      .then(() => this.run('insert into users(name, password) values(\'user2\', \'user2\')'))
-      .then(() => this.run('insert into users(name, password) values(\'user3\', \'user3\')'));
+      .then(run('create table users(id integer primary key autoincrement, name, password)'))
+      .then(run('create table posts(id integer primary key autoincrement, context)'))
+      .then(run('insert into users(name, password) values(\'admin\', \'admin\')'))
+      .then(this.run('insert into users(name, password) values(\'user1\', \'user1\')'))
+      .then(this.run('insert into users(name, password) values(\'user2\', \'user2\')'))
+      .then(this.run('insert into users(name, password) values(\'user3\', \'user3\')'));
   }
 
   run(sql) {
     return new Promise((resolve, reject) => {
-      this.db_.run(sql, {}, function (error) {
+      this.db.run(sql, {}, error => {
         if (error) {
           reject(error);
-          return;
+        } else {
+          resolve(this);
         }
-
-        resolve(this);
       });
     });
   }
@@ -33,7 +34,7 @@ class Database {
     return new Promise((resolve, reject) => {
       const rows = [];
 
-      this.db_.each(sql, (error, row) => {
+      this.db.each(sql, (error, row) => {
         if (error) {
           reject(error);
           return;

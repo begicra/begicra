@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const fs = require('fs');
 const _ = require('underscore');
@@ -5,7 +7,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressSession = require('express-session');
-const router = express.Router();
+const router = express.Router(); // eslint-disable-line new-cap
 const Database = require('./database');
 const LoggingDatabase = require('./logging-database');
 const Authentication = require('./authentication');
@@ -16,7 +18,7 @@ db.initialize();
 const authentication = new Authentication(db);
 
 function validateAuthentication(req, res, next) {
-  if(req.session.user) {
+  if (req.session.user) {
     next();
   } else {
     res.redirect('/bbs/login');
@@ -30,8 +32,8 @@ router.use(expressSession({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000
-  }
+    maxAge: 24 * 60 * 60 * 1000,
+  },
 }));
 
 router
@@ -41,29 +43,29 @@ router
     res.send(template({
       loginId: '',
       password: '',
-      errors: []
+      errors: [],
     }));
   })
   .post('/login', (req, res) => {
     const input = {
       loginId: req.body.loginId,
       password: req.body.password,
-      errors: []
+      errors: [],
     };
 
     // ユーザー名とパスワードを確認
     authentication.validate(input.loginId, input.password)
       .then(() => {
-        req.session.user = {
-          name: input.loginId
+        const session = req.session;
+        session.user = {
+          name: input.loginId,
         };
 
         res.redirect('/bbs');
       })
-      .catch(error => {
-        console.log(error);
-
-        input.errors.push('Login ID または Password が異なります');
+      .catch(() => {
+        const errors = input.errors;
+        errors.push('Login ID または Password が異なります');
 
         const file = fs.readFileSync(path.join(__dirname, 'templates/login.html'), 'utf8');
         const template = _.template(file);
