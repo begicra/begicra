@@ -7,9 +7,10 @@ const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const router = express.Router();
 const Database = require('./database');
+const LoggingDatabase = require('./logging-database');
 const Authentication = require('./authentication');
 
-const db = new Database();
+const db = new LoggingDatabase(new Database());
 db.initialize();
 
 const authentication = new Authentication(db);
