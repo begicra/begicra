@@ -1,7 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 
 class Database {
@@ -40,7 +38,6 @@ class Database {
           reject(error);
           return;
         }
-        console.log(row);
         rows.push(row);
       }, error => {
         if (error) {
