@@ -4,7 +4,7 @@
 $ git clone ...
 $ cd cracker
 $ npm install
-$ npm run
+$ npm start
 ```
 
 http://localhost:3000/bbs を起動してください。
