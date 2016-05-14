@@ -1,37 +1,36 @@
+/* eslint-env jquery */
+
 (() => {
   'use strict';
 
   const ws = new WebSocket('ws://localhost:3000/monitor/ws');
   ws.onmessage = event => {
+    if (!event.data) return;
 
-  	if (!event.data) return;
-  	
-  	var ret = JSON.parse(event.data);
+    const ret = JSON.parse(event.data);
 
     if (!ret.type) {
-    	console.log('データが空です');
-    }
-    else if (ret.type=='sql/query') {
-    	console.log(ret.sql);
-    	$('#retSelectBox').html('<div class="alert alert-success">'+ret.sql+'</div>');
-    }
-    else if (ret.type == 'sql/result') {
-    	console.log(ret.rows);
-    	var elem = '';
-    	jQuery.each(ret.rows, function() {
-    		elem += '<tr>';
-    		elem += '<td>' + this.id + '</td>';
-    		elem += '<td>' + this.name + '</td>';
-    		elem += '<td>' + this.password + '</td>';
-    		elem += '</tr>';
-    	});
+      console.log('データが空です');
+    } else if (ret.type === 'sql/query') {
+      console.log(ret.sql);
+      const $query = $('<div class="alert alert-success"></div>')
+              .text(ret.sql);
+      $('#retSelectBox').empty().append($query);
+    } else if (ret.type === 'sql/result') {
+      console.log(ret.rows);
 
-    	if (ret.rows.length > 0) {
-	    	var html = '<table class="table table-bordered table-striped"><tr><th>id</th><th>name</th><th>password</th></tr>'+elem+'</table>';
-	    	$('#retResultBox').html(html);
-	    }
-    }
+      const $rows = ret.rows.map(row => $('<tr></tr>')
+                                 .append($('<td></td>').text(row.id))
+                                 .append($('<td></td>').text(row.name))
+                                 .append($('<td></td>').text(row.password)));
 
+      const $tr = $('<tr></tr>').append($rows);
+      const $table = $('<table class="table table-bordered table-striped">' +
+                       '<tr><th>id</th><th>name</th><th>password</th></tr></table>');
+      $table.append($tr);
+
+      $('#retResultBox').empty().append($table);
+    }
   };
 
   ws.onopen = () => {
