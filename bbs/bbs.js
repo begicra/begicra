@@ -94,6 +94,18 @@ function bbs(db) {
           }));
         });
     });
+  router.get('/:id', (req, res) => {
+    const id = req.params.id;
+
+    boardManager.getById(id)
+      .then(row => {
+        const file = fs.readFileSync(path.join(__dirname, 'templates/post.html'), 'utf8');
+        const template = _.template(file);
+        res.send(template({
+          row: row || {},
+        }));
+      });
+  });
   router.post('/post', (req, res) => {
     const post = {
       title: req.body.title,

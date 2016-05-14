@@ -37,7 +37,7 @@
     <tbody>
       <% for (const row of rows) { %>
       <tr>
-        <td><%= row.title %></td>
+        <td><a href="/bbs/<%= row.id %>"><%= row.title %></a></td>
         <td><%= row.owner %></td>
       </tr>
       <% } %>

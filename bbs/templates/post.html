@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>投稿: <%= row.title %></title>
+</head>
+<body>
+  <header>
+    <a href="/bbs/logout">ログアウト</a>
+    <a href="/bbs">一覧</a>
+  </header>
+  <h1>投稿: <%= row.title %></h1>
+  <table>
+    <tbody>
+      <tr>
+        <th>タイトル</th>
+        <td><%= row.title %></td>
+      </tr>
+      <tr>
+        <th>本文</th>
+        <td><%= row.body %></td>
+      </tr>
+      <tr>
+        <th>投稿者</th>
+        <td><%= row.owner %></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
