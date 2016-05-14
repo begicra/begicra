@@ -12,7 +12,7 @@ class Database {
 
     return Promise.resolve()
       .then(run('create table users(id integer primary key autoincrement, name, password)'))
-      .then(run('create table posts(id integer primary key autoincrement, context)'))
+      .then(run('create table boards(id integer primary key autoincrement, title, body, owner)'))
       .then(run('insert into users(name, password) values(\'admin\', \'admin\')'))
       .then(this.run('insert into users(name, password) values(\'user1\', \'user1\')'))
       .then(this.run('insert into users(name, password) values(\'user2\', \'user2\')'))

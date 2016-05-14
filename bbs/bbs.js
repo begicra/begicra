@@ -9,9 +9,11 @@ const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const router = express.Router(); // eslint-disable-line new-cap
 const Authentication = require('./authentication');
+const BoardManager = require('./board-manager');
 
 function bbs(db) {
   const authentication = new Authentication(db);
+  const boardManager = new BoardManager(db);
 
   function validateAuthentication(req, res, next) {
     if (req.session.user) {
@@ -32,6 +34,7 @@ function bbs(db) {
     },
   }));
 
+  // ログイン/ログアウト
   router
     .get('/login', (req, res) => {
       const file = fs.readFileSync(path.join(__dirname, 'templates/login.html'), 'utf8');
@@ -75,13 +78,31 @@ function bbs(db) {
     res.redirect('/bbs/login');
   });
 
+  // 静的ファイル
   router.use('/', express.static(path.join(__dirname, 'static')));
+
+  // 掲示板
   router
     .get('/', validateAuthentication, (req, res) => {
-      const file = fs.readFileSync(path.join(__dirname, 'templates/bbs.html'), 'utf8');
-      const template = _.template(file);
-      res.send(template());
+      boardManager.getAll()
+        .then(rows => {
+          const file = fs.readFileSync(path.join(__dirname, 'templates/bbs.html'), 'utf8');
+          const template = _.template(file);
+          res.send(template({
+            owner: req.session.user.name,
+            rows,
+          }));
+        });
     });
+  router.post('/post', (req, res) => {
+    const post = {
+      title: req.body.title,
+      body: req.body.body,
+      owner: req.body.owner,
+    };
+    boardManager.add(post)
+      .then(() => res.redirect('/bbs'));
+  });
 
   return router;
 }
