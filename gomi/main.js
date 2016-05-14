@@ -18,22 +18,30 @@
     }
 
     function sqlResult(data) {
-      console.log(data.rows);
+      const rows = data.rows;
 
-      if (data.rows.length <= 0) {
+      console.log(rows);
+
+      if (rows.length <= 0) {
         $('#retResultBox').empty().append('データなし');
         return $('<div>データなし</div>');
       }
 
-      const $rows = data.rows.map(row => $('<tr></tr>')
-                                 .append($('<td></td>').text(row.id))
-                                 .append($('<td></td>').text(row.name))
-                                 .append($('<td></td>').text(row.password)));
+      const fields = Object.keys(rows[0]);
+      console.log(fields);
 
-      const $tr = $('<tr></tr>').append($rows);
-      const $table = $('<table class="table table-bordered table-striped">' +
-                       '<tr><th>id</th><th>name</th><th>password</th></tr></table>');
-      $table.append($tr);
+      const $table = $('<table class="table table-bordered table-striped"></table>');
+
+      // <tr><th>id</th><th>name</th>...</tr>
+      const $ths = fields.map(field => $('<th></th>').text(field));
+      const $header = $('<tr></tr>').append($ths);
+      $table.append($header);
+
+      const $rows = rows.map(row => {
+        const $tds = fields.map(field => $('<td></td>').text(row[field]));
+        return $('<tr></tr>').append($tds);
+      });
+      $table.append($rows);
 
       return $table;
     }
