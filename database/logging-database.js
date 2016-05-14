@@ -12,16 +12,16 @@ class LoggingDatabase {
   }
 
   run(sql) {
-    this.send(sql);
+    this.sendQuery(sql);
 
     return this.database.run(sql);
   }
   each(sql) {
-    this.send(sql);
+    this.sendQuery(sql);
 
     return this.database.each(sql)
       .then(rows => {
-        this.send(rows);
+        this.sendRows(rows);
         return rows;
       });
   }
@@ -36,6 +36,19 @@ class LoggingDatabase {
     if (this.interceptor) {
       this.interceptor.send(JSON.stringify(data));
     }
+  }
+
+  sendQuery(sql) {
+    this.send({
+      type: 'sql/query',
+      sql,
+    });
+  }
+  sendRows(rows) {
+    this.send({
+      type: 'sql/result',
+      rows,
+    });
   }
 }
 
