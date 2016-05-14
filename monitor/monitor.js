@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 const debug = require('debug')('express:ws');
 
 const express = require('express');
@@ -23,6 +25,7 @@ router.ws('/ws', ws => {
     sendors = sendors.filter(s => s !== send);
   });
 });
+router.use('/', express.static(path.join(__dirname, '../gomi')));
 
 router.interceptor = {
   send(data) {

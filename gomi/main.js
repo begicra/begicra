@@ -3,7 +3,7 @@
 (() => {
   'use strict';
 
-  const ws = new WebSocket('ws://localhost:3000/monitor/ws');
+  const ws = new WebSocket(`ws://${location.host}/monitor/ws`);
   ws.onmessage = event => {
     if (!event.data) return;
 
