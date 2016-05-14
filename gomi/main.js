@@ -9,23 +9,23 @@
 
     const ret = JSON.parse(event.data);
 
-    function sqlQuery(ret) {
-      console.log(ret.sql);
+    function sqlQuery(data) {
+      console.log(data.sql);
       const $query = $('<div class="alert alert-success"></div>')
-              .text(ret.sql);
+              .text(data.sql);
 
       return $query;
     }
 
-    function sqlResult(ret) {
-      console.log(ret.rows);
+    function sqlResult(data) {
+      console.log(data.rows);
 
-      if (ret.rows.length <= 0) {
+      if (data.rows.length <= 0) {
         $('#retResultBox').empty().append('データなし');
         return $('データなし');
       }
 
-      const $rows = ret.rows.map(row => $('<tr></tr>')
+      const $rows = data.rows.map(row => $('<tr></tr>')
                                  .append($('<td></td>').text(row.id))
                                  .append($('<td></td>').text(row.name))
                                  .append($('<td></td>').text(row.password)));
