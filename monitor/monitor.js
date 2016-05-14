@@ -1,4 +1,5 @@
 'use strict';
+
 const debug = require('debug')('express:ws');
 
 const express = require('express');
@@ -6,13 +7,17 @@ const router = express.Router(); // eslint-disable-line new-cap
 
 const sendors = [];
 const invokeSend = data => {
+  debug(data);
+  debug(`${sendors.length} sendors`);
   sendors.forEach(send => send(data));
 };
 
 router.ws('/ws', ws => {
   debug('Monitor connected');
 
-  sendors.push(data => ws.send(data));
+  sendors.push(data => {
+    ws.send(data);
+  });
 });
 
 router.interceptor = {

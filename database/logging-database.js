@@ -34,7 +34,7 @@ class LoggingDatabase {
     debug(data);
 
     if (this.interceptor) {
-      this.interceptor.send(data);
+      this.interceptor.send(JSON.stringify(data));
     }
   }
 }

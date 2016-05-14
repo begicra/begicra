@@ -6,6 +6,7 @@ require('express-ws')(app);
 const Database = require('./database/database');
 const LoggingDatabase = require('./database/logging-database');
 const database = new LoggingDatabase(new Database());
+database.initialize();
 
 const dashboard = require('./dashbaord/dashboard');
 const bbs = require('./bbs/bbs')(database);
