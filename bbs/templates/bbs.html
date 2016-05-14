@@ -9,5 +9,39 @@
     <a href="/bbs/logout">ログアウト</a>
   </header>
   <h1>BBS</h1>
+  <form action="/bbs/post" method="post">
+    <fieldset>
+      <div>
+        <label>
+          タイトル:
+          <input type="text" name="title">
+        </label>
+      </div>
+      <div>
+        <label>
+          本文:
+          <textarea name="body"></textarea>
+        </label>
+      </div>
+      <div>
+        <input type="hidden" name="owner" value="<%= owner %>">
+        <button type="sbumit">投稿</button>
+      </div>
+    </fieldset>
+  </form>
+  <table>
+    <thead>
+      <th>タイトル</th>
+      <th>投稿者</th>
+    </thead>
+    <tbody>
+      <% for (const row of rows) { %>
+      <tr>
+        <td><%= row.title %></td>
+        <td><%= row.owner %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
 </body>
 </html>
