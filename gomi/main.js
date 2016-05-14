@@ -24,7 +24,6 @@
       console.log(rows);
 
       if (rows.length <= 0) {
-        $('#retResultBox').empty().append('データなし');
         return $('<div>データなし</div>');
       }
 
