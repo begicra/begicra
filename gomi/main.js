@@ -22,7 +22,7 @@
 
       if (data.rows.length <= 0) {
         $('#retResultBox').empty().append('データなし');
-        return $('データなし');
+        return $('<div>データなし</div>');
       }
 
       const $rows = data.rows.map(row => $('<tr></tr>')
@@ -41,9 +41,9 @@
     if (!ret.type) {
       console.log('データが空です');
     } else if (ret.type === 'sql/query') {
-      $('#retSelectBox').empty().append(sqlQuery(ret));
+      $('#results').append(sqlQuery(ret));
     } else if (ret.type === 'sql/result') {
-      $('#retResultBox').empty().append(sqlResult(ret));
+      $('#results').append(sqlResult(ret));
     }
   };
 
