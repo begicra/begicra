@@ -12,18 +12,30 @@ class LoggingDatabase {
   }
 
   run(sql) {
-    debug(sql);
+    this.send(sql);
 
     return this.database.run(sql);
   }
   each(sql) {
-    debug(sql);
+    this.send(sql);
 
     return this.database.each(sql)
       .then(rows => {
-        debug(rows);
+        this.send(rows);
         return rows;
       });
+  }
+
+  setInterceptor(interceptor) {
+    this.interceptor = interceptor;
+  }
+
+  send(data) {
+    debug(data);
+
+    if (this.interceptor) {
+      this.interceptor.send(data);
+    }
   }
 }
 
