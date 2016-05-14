@@ -46,12 +46,20 @@
       return $table;
     }
 
+    function sqlError(data) {
+      const $error = $('<div class="alert alert-danger"></div>')
+              .text(data.error);
+      return $error;
+    }
+
     if (!ret.type) {
       console.log('データが空です');
     } else if (ret.type === 'sql/query') {
       $('#results').append(sqlQuery(ret));
     } else if (ret.type === 'sql/result') {
       $('#results').append(sqlResult(ret));
+    } else if (ret.type === 'sql/error') {
+      $('#results').append(sqlError(ret));
     }
   };
 

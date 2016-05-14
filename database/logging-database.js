@@ -14,7 +14,8 @@ class LoggingDatabase {
   run(sql) {
     this.sendQuery(sql);
 
-    return this.database.run(sql);
+    return this.database.run(sql)
+      .then(null, error => this.sendErrors(error));
   }
   each(sql) {
     this.sendQuery(sql);
@@ -23,7 +24,8 @@ class LoggingDatabase {
       .then(rows => {
         this.sendRows(rows);
         return rows;
-      });
+      })
+      .then(null, error => this.sendErrors(error));
   }
 
   setInterceptor(interceptor) {
@@ -48,6 +50,12 @@ class LoggingDatabase {
     this.send({
       type: 'sql/result',
       rows,
+    });
+  }
+  sendErrors(error) {
+    this.send({
+      type: 'sql/error',
+      error: JSON.stringify(error),
     });
   }
 }
