@@ -20,4 +20,4 @@ app.use('/', dashboard);
 
 app.listen(3000);
 
-setInterval(() => monitor.interceptor.send('ping'), 1000);
+setInterval(() => monitor.interceptor.send('ping'), 10000);
