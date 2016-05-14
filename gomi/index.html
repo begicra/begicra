@@ -1,11 +1,28 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8"/>
-    <title>WebSocket テスト用</title>
+    <title>結果表示</title>
+    <link href=./css/bootstrap.min.css rel=stylesheet />
+    <link href=./css/style.css rel=stylesheet />
   </head>
   <body>
-    <h1>WebSocket テスト</h1>
+  	<div class="container">
+	  	<header>
+	    	<h1>結果表示</h1>
+	    </header>
+	</div>
+
+	<div class="container">
+	    <div class="row">
+	    	<div id="retSelectBox"></div>
+	    	<div id="retResultBox"></div>
+	    </div>
+	</div>
+
+
     <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="./js/bootstrap.js"></script>
   </body>
 </html>
