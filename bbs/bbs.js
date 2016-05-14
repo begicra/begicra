@@ -68,10 +68,19 @@ function bbs(db) {
           res.send(template(input));
         });
     });
+  router.get('/logout', (req, res) => {
+    const session = req.session;
+    session.user = null;
+
+    res.redirect('/bbs/login');
+  });
+
   router.use('/', express.static(path.join(__dirname, 'static')));
   router
     .get('/', validateAuthentication, (req, res) => {
-      res.send('BBS');
+      const file = fs.readFileSync(path.join(__dirname, 'templates/bbs.html'), 'utf8');
+      const template = _.template(file);
+      res.send(template());
     });
 
   return router;
