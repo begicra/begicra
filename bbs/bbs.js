@@ -61,8 +61,9 @@ router
       })
       .catch(error => {
         console.log(error);
+        fs.writeFileSync('error.txt', error);
 
-        input.errors.push('Login ID または Password が異なります');
+        input.errors.push('Login ID か Password が違います.');
 
         const file = fs.readFileSync(path.join(__dirname, 'templates/login.html'), 'utf8');
         const template = _.template(file);
@@ -70,9 +71,13 @@ router
       });
   });
 router.use('/', express.static(path.join(__dirname, 'static')));
-router
-  .get('/', validateAuthentication, (req, res) => {
-    res.send('BBS');
-  });
+router.get('/', validateAuthentication, (req, res) => {
+  res.send('BBS');
+});
+router.get('/error', (req, res) => {
+  //res.send('error.txt');
+  res.sendFile(__dirname + 'error.txt');
+});
+
 
 module.exports = router;
