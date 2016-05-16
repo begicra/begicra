@@ -3,45 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>BBS</title>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <a href="/bbs/logout">ログアウト</a>
-  </header>
-  <h1>BBS</h1>
-  <form action="/bbs/post" method="post">
-    <fieldset>
-      <div>
-        <label>
-          タイトル:
-          <input type="text" name="title">
-        </label>
+  <div class="container">
+    <header>
+      <a href="/bbs/logout">ログアウト</a>
+      <h1>BBS</h1>
+    </header>
+  </div>
+
+  <div class="container">
+    <div class="row" id="inputbox">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <form action="/bbs/post" method="post">
+          <fieldset>
+            <div class="form-group">
+              <label for="inputTitle">タイトル</label>
+              <input type="text" id="inputTitle" name="title" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="inputBody">本文</label>
+              <textarea name="body" class="form-control" rows="5"></textarea>
+            </div>
+            <div class="form-group text-center">
+              <input type="hidden" name="owner" value="<%= owner %>">
+              <button type="submit" class="btn btn-primary">投稿</button>
+            </div>
+          </fieldset>      
+        </form>
       </div>
-      <div>
-        <label>
-          本文:
-          <textarea name="body"></textarea>
-        </label>
-      </div>
-      <div>
-        <input type="hidden" name="owner" value="<%= owner %>">
-        <button type="sbumit">投稿</button>
-      </div>
-    </fieldset>
-  </form>
-  <table>
-    <thead>
-      <th>タイトル</th>
-      <th>投稿者</th>
-    </thead>
-    <tbody>
-      <% for (const row of rows) { %>
-      <tr>
-        <td><a href="/bbs/<%= row.id %>"><%= row.title %></a></td>
-        <td><%= row.owner %></td>
-      </tr>
-      <% } %>
-    </tbody>
-  </table>
+      <div class="col-md-2"></div>
+    </div>
+
+    <div class="row" id="bbsbox">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th width="70%">タイトル</th>
+            <th>投稿者</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (const row of rows) { %>
+          <tr>
+            <td><a href="/bbs/<%= row.id %>"><%= row.title %></a></td>
+            <td><%= row.owner %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </body>
 </html>

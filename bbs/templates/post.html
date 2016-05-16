@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>投稿: <%= row.title %></title>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <a href="/bbs/logout">ログアウト</a>
-    <a href="/bbs">一覧</a>
-  </header>
-  <h1>投稿: <%= row.title %></h1>
-  <table>
-    <tbody>
-      <tr>
-        <th>タイトル</th>
-        <td><%= row.title %></td>
-      </tr>
-      <tr>
-        <th>本文</th>
-        <td><%= row.body %></td>
-      </tr>
-      <tr>
-        <th>投稿者</th>
-        <td><%= row.owner %></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="container">
+    <header>
+      <a href="/bbs/logout">ログアウト</a>
+      <h1>投稿: <%= row.title %></h1>
+    </header>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <table class="table table-striped table-borded">
+        <tbody>
+          <tr>
+            <th width="25%">タイトル</th>
+            <td><%= row.title %></td>
+          </tr>
+          <tr>
+            <th>本文</th>
+            <td><%= row.body %></td>
+          </tr>
+          <tr>
+            <th>投稿者</th>
+            <td><%= row.owner %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-center"><a href="/bbs" class="btn btn-default">一覧へ戻る</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </body>
 </html>
