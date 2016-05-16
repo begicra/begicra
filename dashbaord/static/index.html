@@ -3,14 +3,55 @@
 <head>
   <meta charset="UTF-8">
   <title>ビギクラ!</title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
-  <h1>ビギクラ!</h1>
-  <div>
-    <a href="/bbs">攻撃対象アプリ</a>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>ビギクラ!</h1>
+      <p>
+        ビギクラ! は初心者向けの脆弱性学習アプリです。ビギクラ! は脆弱性のある掲示板アプリと、実行される SQL 文や実行結果を表示するモニターのセットです。実行される SQL 文を見ながら攻撃をしてみることで、誰でも簡単に攻撃を体験することができます。
+      </p>
+    </div>
   </div>
-  <div>
-    <a href="/monitor">SQL モニター</a>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>手順1 モニターを起動</h2>
+        <p>
+          モニターは、アプリで実行された SQL 文とその実行結果が表示されます。まずはモニターを起動しましょう!
+        </p>
+        <p>
+          <a class="btn btn-primary" href="/monitor" target="monitor">モニターを起動 >></a>
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <h2>掲示板を起動</h2>
+        <p>
+          何の特徴もない会員制の掲示板です。ログイン ID に <code>admin</code> パスワードに <code>admin</code> でログインができます。
+        </p>
+        <p>
+          まずはモニターを見ながら、ログインした時、記事を投稿した時、表示した時など、どのような SQL 文が実行されるか? その結果がどうなるのかを確認しましょう!
+        </p>
+        <p>
+          <a class="btn btn-primary" href="/bbs" target="app">掲示板を起動 >></a>
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <h2>攻撃しよう!</h2>
+        <p>
+          掲示板の機能を一通り試してら、今度は攻撃にチャレンジしてみましょう! 少し工夫をするだけで、admin のパスワードを知らなくてもログインできるかもしれません。他にもいろいな脆弱性がありますのでぜひ試してみてください!
+        </p>
+      </div>
+
+    </div>
   </div>
+
+  <script src="/js/jquery-2.2.3.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
 </body>
 </html>
