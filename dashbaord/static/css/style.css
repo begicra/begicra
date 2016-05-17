@@ -1,5 +1,18 @@
+body {color:#333;}
 header h1 {font-size:32px;}
 #inputbox{margin-top:16px;}
-#bbsbox{margin-top:16px;}
 #loginbox{margin-top:32px;}
+#bbsentrybox {background-color:#f6f6f6; padding:32px; margin-bottom:16px;}
+.descriptionbox {background-color:#f6f6f6; padding:2px 8px 4px 8px; margin-bottom:16px; border-radius:6px;}
+
 li {list-style-type: none;}
+
+#bbsbox{margin-top:16px;}
+#bbsbox table thead th{
+	background-color:#f6f6f6;
+	border-right:none;
+}
+#bbsbox .postowner {
+	text-align:right;
+	border-left:none;
+}
