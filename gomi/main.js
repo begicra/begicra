@@ -4,7 +4,8 @@
   'use strict';
 
   const wsHostName = location.host || 'localhost:3000';
-  const ws = new WebSocket(`ws://${wsHostName}/monitor/ws`);
+  const wsProtocol = location.protocol === 'https://' ? 'wss:' : 'ws';
+  const ws = new WebSocket(`${wsProtocol}://${wsHostName}/monitor/ws`);
   ws.onmessage = event => {
     if (!event.data) return;
 
