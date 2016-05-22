@@ -28,13 +28,13 @@
           <div class="panel-body">
             <% if (errors) { %>
               <% for (const e of errors) { %>
-                <div class="alert alert-danger"><%= e %></div>
+                <div class="alert alert-danger"><%- e %></div>
               <% } %>
             <% } %>
             <form method="POST">
               <div class="form-group">
                 <label for="loginId">Login ID</label>
-                <input type="text" id="loginId" name="loginId" value="<%= loginId %>" class="form-control">
+                <input type="text" id="loginId" name="loginId" value="<%- loginId %>" class="form-control">
               </div>
               <div class="form-group">
                 <label for="password">Password</label>

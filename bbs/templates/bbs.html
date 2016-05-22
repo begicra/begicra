@@ -37,7 +37,7 @@
                 <textarea name="body" class="form-control" rows="5"></textarea>
               </div>
               <div class="form-group text-center">
-                <input type="hidden" name="owner" value="<%= owner %>">
+                <input type="hidden" name="owner" value="<%- owner %>">
                 <button type="submit" class="btn btn-primary">投稿</button>
               </div>
             </fieldset>
@@ -53,14 +53,14 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th width="70%">タイトル：<%= row.title %> </th>
-            <th class="postowner">投稿者：<%= row.owner %></th>
+            <th width="70%">タイトル：<%- row.title %> </th>
+            <th class="postowner">投稿者：<%- row.owner %></th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td colspan="2">
-                <%= row.body %>
+                <%- row.body %>
             </td>
           </tr>
         </tbody>

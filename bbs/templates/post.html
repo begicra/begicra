@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>投稿: <%= row.title %></title>
+  <title>投稿: <%- row.title %></title>
   <link href="/css/bootstrap.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
 </head>
@@ -10,7 +10,7 @@
   <div class="container">
     <header>
       <a href="/bbs/logout">ログアウト</a>
-      <h1>投稿: <%= row.title %></h1>
+      <h1>投稿: <%- row.title %></h1>
     </header>
   </div>
 
@@ -20,15 +20,15 @@
         <tbody>
           <tr>
             <th width="25%">タイトル</th>
-            <td><%= row.title %></td>
+            <td><%- row.title %></td>
           </tr>
           <tr>
             <th>本文</th>
-            <td><%= row.body %></td>
+            <td><%- row.body %></td>
           </tr>
           <tr>
             <th>投稿者</th>
-            <td><%= row.owner %></td>
+            <td><%- row.owner %></td>
           </tr>
           <tr>
             <td colspan="2" class="text-center"><a href="/bbs" class="btn btn-default">一覧へ戻る</a></td>
