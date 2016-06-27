@@ -19,7 +19,7 @@ function bbs(db) {
     if (req.session.user) {
       next();
     } else {
-      res.redirect('/bbs/login');
+      res.redirect('./login');
     }
   }
 
@@ -60,7 +60,7 @@ function bbs(db) {
             name: input.loginId,
           };
 
-          res.redirect('/bbs');
+          res.redirect('./');
         })
         .catch(() => {
           const errors = input.errors;
@@ -75,7 +75,7 @@ function bbs(db) {
     const session = req.session;
     session.user = null;
 
-    res.redirect('/bbs/login');
+    res.redirect('./login');
   });
 
   // 静的ファイル
@@ -113,7 +113,7 @@ function bbs(db) {
       owner: req.body.owner,
     };
     boardManager.add(post)
-      .then(() => res.redirect('/bbs'));
+      .then(() => res.redirect('./'));
   });
 
   return router;
