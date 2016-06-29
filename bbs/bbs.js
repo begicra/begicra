@@ -7,7 +7,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressSession = require('express-session');
-const router = express.Router(); // eslint-disable-line new-cap
 const Authentication = require('./authentication');
 const BoardManager = require('./board-manager');
 
@@ -22,6 +21,8 @@ function bbs(db) {
       res.redirect('./login');
     }
   }
+
+  const router = express.Router(); // eslint-disable-line new-cap
 
   router.use(bodyParser());
   router.use(cookieParser());

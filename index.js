@@ -1,4 +1,5 @@
 const express = require('express');
+const virtual = require('./libs/virtual-middleware');
 
 const app = express();
 require('express-ws')(app);
@@ -9,12 +10,19 @@ const database = new LoggingDatabase(new Database());
 database.initialize();
 
 const dashboard = require('./dashbaord/dashboard');
-const bbs = require('./bbs/bbs')(database);
+const bbs = require('./bbs/bbs');
 const monitor = require('./monitor/monitor');
 
 database.setInterceptor(monitor.interceptor);
 
-app.use('/bbs', bbs);
+app.use('/bbs', bbs(database));
+app.use(/\/app\/[a-zA-Z0-0]+/, virtual(() => {
+  const db = new LoggingDatabase(new Database());
+  db.initialize();
+  db.setInterceptor(monitor.interceptor);
+
+  return bbs(db);
+}));
 app.use('/monitor', monitor);
 app.use('/', dashboard);
 
