@@ -15,12 +15,28 @@ const monitor = require('./monitor/monitor');
 
 database.setInterceptor(monitor.interceptor);
 
-app.use('/bbs', bbs(database));
-app.use(/\/app\/[a-zA-Z0-0]+/, virtual(() => {
-  const db = new LoggingDatabase(new Database());
-  db.initialize();
-  db.setInterceptor(monitor.interceptor);
+const environment = {
+  databases: {},
+  monitors: {},
 
+  getDatabase(id) {
+    let db = this.databases[id];
+    if (!db) {
+      this.databases[id] = db = new LoggingDatabase(new Database());
+      db.initialize();
+      db.setInterceptor(this.getMonitor(id).interceptor);
+    }
+    return db;
+  },
+  getMonitor(id) {
+    const m = this.monitors[id] = this.monitors[id] || monitor;
+    return m;
+  },
+};
+
+app.use('/bbs', bbs(database));
+app.use(/\/app\/[a-zA-Z0-0]+\/bbs/, virtual(id => {
+  const db = environment.getDatabase(id);
   return bbs(db);
 }));
 app.use('/monitor', monitor);
