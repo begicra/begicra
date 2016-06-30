@@ -5,32 +5,37 @@ const path = require('path');
 const debug = require('debug')('express:ws');
 
 const express = require('express');
-const router = express.Router(); // eslint-disable-line new-cap
 
-let sendors = [];
-const invokeSend = data => {
-  debug(data);
-  debug(`${sendors.length} sendors`);
-  sendors.forEach(send => send(data));
-};
+function monitor() {
+  const router = express.Router(); // eslint-disable-line new-cap
 
-router.ws('/ws', ws => {
-  debug('Monitor connected');
+  let sendors = [];
+  const invokeSend = data => {
+    debug(data);
+    debug(`${sendors.length} sendors`);
+    sendors.forEach(send => send(data));
+  };
 
-  const send = data => ws.send(data);
+  router.ws('/ws', ws => {
+    debug('Monitor connected');
 
-  sendors.push(send);
+    const send = data => ws.send(data);
 
-  ws.on('close', () => {
-    sendors = sendors.filter(s => s !== send);
+    sendors.push(send);
+
+    ws.on('close', () => {
+      sendors = sendors.filter(s => s !== send);
+    });
   });
-});
-router.use('/', express.static(path.join(__dirname, '../gomi')));
+  router.use('/', express.static(path.join(__dirname, '../gomi')));
 
-router.interceptor = {
-  send(data) {
-    invokeSend(data);
-  },
-};
+  router.interceptor = {
+    send(data) {
+      invokeSend(data);
+    },
+  };
 
-module.exports = router;
+  return router;
+}
+
+module.exports = monitor;

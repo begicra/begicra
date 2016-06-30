@@ -13,7 +13,8 @@ const dashboard = require('./dashbaord/dashboard');
 const bbs = require('./bbs/bbs');
 const monitor = require('./monitor/monitor');
 
-database.setInterceptor(monitor.interceptor);
+const globalMonitor = monitor();
+database.setInterceptor(globalMonitor.interceptor);
 
 const environment = {
   databases: {},
@@ -29,19 +30,30 @@ const environment = {
     return db;
   },
   getMonitor(id) {
-    const m = this.monitors[id] = this.monitors[id] || monitor;
-    return m;
+    const mon = this.monitors[id] = this.monitors[id] || monitor();
+    return mon;
+  },
+  getId(pathname) {
+    return pathname.replace(/^\/app\/([a-zA-Z0-9]+)\/[a-z]+/, '$1');
   },
 };
 
+// Global (廃止予定)
 app.use('/bbs', bbs(database));
-app.use(/\/app\/[a-zA-Z0-0]+\/bbs/, virtual(id => {
-  const db = environment.getDatabase(id);
+app.use('/monitor', globalMonitor);
+
+// 環境ごと
+app.use(/\/app\/[a-zA-Z0-9]+\/bbs/, virtual(pathname => {
+  const db = environment.getDatabase(environment.getId(pathname));
   return bbs(db);
 }));
-app.use('/monitor', monitor);
+app.use(/\/app\/[a-zA-Z0-9]+\/monitor/, virtual(pathname => {
+  return environment.getMonitor(environment.getId(pathname));
+}));
+
+// ダッシュボード
 app.use('/', dashboard);
 
 app.listen(3000);
 
-setInterval(() => monitor.interceptor.send(JSON.stringify({ type: 'ping' })), 10000);
+setInterval(() => globalMonitor.interceptor.send(JSON.stringify({ type: 'ping' })), 10000);

@@ -5,7 +5,10 @@
 
   const wsHostName = location.host || 'localhost:3000';
   const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-  const ws = new WebSocket(`${wsProtocol}//${wsHostName}/monitor/ws`);
+  const pathname = location.pathname;
+  const wsUri = `${wsProtocol}//${wsHostName}${pathname}ws`;
+  console.log(wsUri);
+  const ws = new WebSocket(wsUri);
   ws.onmessage = event => {
     if (!event.data) return;
 
