@@ -6,4 +6,7 @@ module.exports = {
   rules: {
     'strict': 0,
   },
+  env: {
+    jquery: true,
+  },
 };
