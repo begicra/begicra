@@ -18,7 +18,7 @@ function bbs(db) {
     if (req.session.user) {
       next();
     } else {
-      res.redirect('./login');
+      res.redirect(path.join(req.baseUrl, 'login'));
     }
   }
 
