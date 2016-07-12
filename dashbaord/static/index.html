@@ -27,25 +27,27 @@
   <div class="container">
     <div class="row">
       <div class="col-md-4">
-        <h2>手順1 モニターを起動</h2>
-        <p>
-          モニターは、アプリで実行された SQL 文とその実行結果が表示されます。まずはモニターを起動しましょう!
-        </p>
-        <p>
-          <a class="btn btn-primary" href="/monitor" target="monitor">モニターを起動 >></a>
-        </p>
-      </div>
-
-      <div class="col-md-4">
-        <h2>手順2 掲示板を起動</h2>
+        <h2>手順1 掲示板を起動</h2>
         <p>
           何の特徴もない会員制の掲示板です。ログイン ID に <code>admin</code> パスワードに <code>admin</code> でログインができます。
         </p>
         <p>
-          まずはモニターを見ながら、ログインした時、記事を投稿した時、表示した時など、どのような SQL 文が実行されるか? その結果がどうなるのかを確認しましょう!
+          投稿をしてみて、掲示板アプリの機能を一通り試してみよう!
         </p>
         <p>
-          <a class="btn btn-primary" href="/bbs" target="app">掲示板を起動 >></a>
+          <form action="/new" method="post" target="app">
+            <button type="submit" class="btn btn-primary">掲示板を起動 >></button>
+          </form>
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <h2>手順2 モニターを起動</h2>
+        <p>
+          掲示板の右上に<code>モニター</code>ボタンがあります。ここをクリックすると、モニターが表示されます。
+        </p>
+        <p>
+          モニターは、アプリで実行された SQL 文とその実行結果が表示されます。掲示板を操作しながらどのような SQL 文が実行されるか確認しましょう!
         </p>
       </div>
 
