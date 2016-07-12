@@ -7,9 +7,21 @@
   <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li><a href="./logout">ログアウト</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="../monitor" target="monitor" data-toggle="tooltip" title="アプリで実行される SQL 文がや結果をリアルタイムで見ることができます!">モニター</a></li>
+        <li><a href="#" data-toggle="tooltip" title="攻略のヒントを表示します!">ヒント</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <div class="container">
     <header>
-      <a href="./logout">ログアウト</a>
       <h1>投稿: <%- row.title %></h1>
     </header>
   </div>
