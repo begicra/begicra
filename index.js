@@ -38,10 +38,6 @@ const environment = {
   },
 };
 
-// Global (廃止予定)
-app.use('/bbs', bbs(database));
-app.use('/monitor', globalMonitor);
-
 // 環境ごと
 app.use(/\/app\/[a-zA-Z0-9]+\/bbs/, virtual(pathname => {
   const db = environment.getDatabase(environment.getId(pathname));
