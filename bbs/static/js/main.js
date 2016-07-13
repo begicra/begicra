@@ -3,7 +3,8 @@
 
   const config = {
     get showHint() {
-      return localStorage.getItem('begicra:show-hint') !== 'false';
+      const value = localStorage.getItem('begicra:show-hint');
+      return value ? value !== 'false' : false;
     },
     toggleShowHint() {
       const showHint = !this.showHint;
