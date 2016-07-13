@@ -5,6 +5,7 @@
   <title>ログイン</title>
   <link href="/css/bootstrap.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-default">
@@ -21,14 +22,6 @@
       <div class="col-md-3"></div>
       <div class="col-md-6">
 
-        <div class="descriptionbox">
-          <h2>掲示板へのログイン</h2>
-          <p>
-            ログイン ID に <code>admin</code> パスワードに <code>admin</code> でログインすることができますが、
-            他にも方法があるかも！？モニタにどのような結果が表示されているか確認しながら色々試してみましょう！
-          </p>
-        </div>
-
         <div class="panel panel-primary">
           <div class="panel-heading">
             <h3 class="panel-title">ログイン</h3>
@@ -43,7 +36,7 @@
             <form method="POST">
               <div class="form-group">
                 <label for="loginId">Login ID</label>
-                <input type="text" id="loginId" name="loginId" value="<%- loginId %>" class="form-control">
+                <input type="text" id="loginId" name="loginId" value="<%- loginId %>" class="form-control bbs-hint" data-placement="bottom" data-content="ログイン ID に &lt;code>admin&lt;/code> パスワードに &lt;code>admin&lt;/code> でログインすることができますが、他にも方法があるかも!? モニタにどのような結果が表示されているか確認しながら色々試してみましょう!">
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
@@ -57,6 +50,12 @@
         </div>
       </div>
       <div class="col-md-3"></div>
+    </div>
   </div>
+
+  <script src="/js/jquery-2.2.3.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+
+  <script src="./js/main.js"></script>
 </body>
 </html>
