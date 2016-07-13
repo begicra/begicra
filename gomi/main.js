@@ -16,9 +16,11 @@
 
     function sqlQuery(data) {
       console.log(data.sql);
-      const $query = $('<div class="alert alert-success"></div>')
-              .text(data.sql);
-
+      //const $query = $('<div class="alert alert-success"></div>').text(data.sql);
+      const $code = $('<code class="sql"></code>').text(data.sql);
+      const $pre = $('<pre></sql>').append($code);
+      const $query = $('<div class="alert alert-success"></div>').append($pre);
+      
       return $query;
     }
 
@@ -32,6 +34,7 @@
       }
 
       const fields = Object.keys(rows[0]);
+      console.log("fields");
       console.log(fields);
 
       const $table = $('<table class="table table-bordered table-striped"></table>');
@@ -65,6 +68,13 @@
     } else if (ret.type === 'sql/error') {
       $('#results').append(sqlError(ret));
     }
+
+    // syntax hilight
+    $(document).ready(function(){
+      $('pre code').each(function(i, block){
+        hljs.highlightBlock(block);
+      });
+    });
   };
 
   ws.onopen = () => {
