@@ -13,7 +13,7 @@
       <ul class="nav navbar-nav">
         <li><a href="./">掲示板</a></li>
         <% if (login.isAdmin) { %>
-        <li class="active"><a href="./users">ユーザー一覧</a></li>
+        <li class="active bbs-hint" data-placement="bottom" data-content="管理者じゃなくてもユーザー一覧が見れるかも?"><a href="./users">ユーザー一覧</a></li>
         <% } %>
         <li><a href="./logout">ログアウト</a></li>
       </ul>
