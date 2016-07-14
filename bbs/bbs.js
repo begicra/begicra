@@ -9,13 +9,15 @@ const bodyParser = require('body-parser');
 const expressSession = require('express-session');
 const Authentication = require('./authentication');
 const BoardManager = require('./board-manager');
+const UserManager = require('./user-manager');
 
 function bbs(db) {
   const authentication = new Authentication(db);
   const boardManager = new BoardManager(db);
+  const userManager = new UserManager(db);
 
   function validateAuthentication(req, res, next) {
-    if (req.session.user) {
+    if (req.session.user && req.session.user.name) {
       next();
     } else {
       res.redirect(path.join(req.baseUrl, 'login'));
@@ -59,6 +61,7 @@ function bbs(db) {
           const session = req.session;
           session.user = {
             name: input.loginId,
+            isAdmin: input.loginId === 'admin',
           };
 
           res.redirect('./');
@@ -74,13 +77,23 @@ function bbs(db) {
     });
   router.get('/logout', (req, res) => {
     const session = req.session;
-    session.user = null;
+    session.user = {};
 
     res.redirect('./login');
   });
 
   // 静的ファイル
   router.use('/', express.static(path.join(__dirname, 'static')));
+
+  // 会員リスト
+  router.get('/users', (req, res) => {
+    userManager.getAll()
+      .then(users => {
+        const file = fs.readFileSync(path.join(__dirname, 'templates/users.html'), 'utf8');
+        const template = _.template(file);
+        res.send(template({ login: req.session.user, users }));
+      });
+  });
 
   // 掲示板
   router
@@ -90,6 +103,7 @@ function bbs(db) {
           const file = fs.readFileSync(path.join(__dirname, 'templates/bbs.html'), 'utf8');
           const template = _.template(file);
           res.send(template({
+            login: req.session.user,
             owner: req.session.user.name,
             rows,
           }));
@@ -103,6 +117,7 @@ function bbs(db) {
         const file = fs.readFileSync(path.join(__dirname, 'templates/post.html'), 'utf8');
         const template = _.template(file);
         res.send(template({
+          login: req.session.user,
           row: row || {},
         }));
       });

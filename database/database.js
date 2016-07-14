@@ -14,9 +14,9 @@ class Database {
       .then(run('create table users(id integer primary key autoincrement, name, password)'))
       .then(run('create table boards(id integer primary key autoincrement, title, body, owner)'))
       .then(run('insert into users(name, password) values(\'admin\', \'admin\')'))
-      .then(this.run('insert into users(name, password) values(\'user1\', \'user1\')'))
-      .then(this.run('insert into users(name, password) values(\'user2\', \'user2\')'))
-      .then(this.run('insert into users(name, password) values(\'user3\', \'user3\')'));
+      .then(run('insert into users(name, password) values(\'user1\', \'user1\')'))
+      .then(run('insert into users(name, password) values(\'user2\', \'user2\')'))
+      .then(run('insert into users(name, password) values(\'user3\', \'user3\')'));
   }
 
   run(sql) {
