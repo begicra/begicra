@@ -18,7 +18,7 @@
       console.log(data.sql);
       //const $query = $('<div class="alert alert-success"></div>').text(data.sql);
       const $code = $('<code class="sql"></code>').text(data.sql);
-      const $pre = $('<pre></sql>').append($code);
+      const $pre = $('<pre></pre>').append($code);
       const $query = $('<div class="alert alert-success"></div>').append($pre);
       
       return $query;
@@ -30,14 +30,14 @@
       console.log(rows);
 
       if (rows.length <= 0) {
-        return $('<div>データなし</div>');
+        return $('<div class="sql-result">クエリで得られた表がありません</div>');
       }
 
       const fields = Object.keys(rows[0]);
       console.log("fields");
       console.log(fields);
 
-      const $table = $('<table class="table table-bordered table-striped"></table>');
+      const $table = $('<table class="table table-bordered table-striped sql-result"></table>');
 
       // <tr><th>id</th><th>name</th>...</tr>
       const $ths = fields.map(field => $('<th></th>').text(field));

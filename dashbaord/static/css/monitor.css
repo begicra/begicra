@@ -1,0 +1,102 @@
+body {
+}
+
+div header {
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #fff;
+}
+
+.hljs,
+.hljs-subst {
+  color: #000;
+}
+
+.hljs-string,
+.hljs-meta,
+.hljs-symbol,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-addition {
+  color: #756bb1;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #636363;
+}
+
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-bullet,
+.hljs-link {
+  color: #31a354;
+}
+
+.hljs-deletion,
+.hljs-variable {
+  color: #88f;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-title,
+.hljs-section,
+.hljs-built_in,
+.hljs-doctag,
+.hljs-type,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-strong {
+  color: #3182bd;
+  color: red;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-attribute {
+  color: #e6550d;
+}
+
+div.alert.alert-success {
+  margin: 0px;
+  padding: 4px;
+  border: 1px solid gray;
+}
+
+div.alert.alert-success + .sql-result {
+  margin-top: 10px;
+  margin-bottom: 32px;
+}
+
+table.sql-result {
+}
+
+pre {
+  margin: 0px;
+  border: 0px;
+  background-color: #dff0d8;
+}
+
+code.sql.hljs {
+  background-color: #dff0d8;
+}
+
+div.sql-result {
+  position: static;
+  color: red;
+  margin-top: 0px ;
+  margin-bottom: 20px;
+  top: 0px;
+}
