@@ -146,6 +146,12 @@ function bbs(db) {
     boardManager.save(post)
       .then(() => res.redirect(`../${post.id}`));
   });
+  router.get('/:id/delete', (req, res) => {
+    const id = req.params.id;
+
+    boardManager.remove(id)
+      .then(() => res.redirect('../'));
+  });
   router.post('/post', (req, res) => {
     const post = {
       title: req.body.title,
