@@ -8,7 +8,7 @@ class BoardManager {
   }
 
   getAll() {
-    const sql = 'select * from boards';
+    const sql = 'select * from boards order by posted desc';
     return this.db.each(sql);
   }
   getById(id) {
