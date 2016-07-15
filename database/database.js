@@ -10,13 +10,29 @@ class Database {
   initialize() {
     const run = sql => () => this.run(sql);
 
+    function initializeUsers() {
+      return Promise.resolve()
+        .then(run('create table users(id integer primary key autoincrement, name, password)'))
+        .then(run('insert into users(name, password) values(\'admin\', \'admin\')'))
+        .then(run('insert into users(name, password) values(\'user1\', \'user1\')'))
+        .then(run('insert into users(name, password) values(\'user2\', \'user2\')'))
+        .then(run('insert into users(name, password) values(\'user3\', \'user3\')'));
+    }
+
+    function initializeBoards() {
+      return Promise.resolve()
+        .then(run('create table boards(id integer primary key autoincrement, title, body, owner)'))
+        .then(run(`
+insert into boards(title, body, owner)
+values('テスト投稿', 'これはテスト投稿です。
+今日はいい天気',
+'admin')
+`));
+    }
+
     return Promise.resolve()
-      .then(run('create table users(id integer primary key autoincrement, name, password)'))
-      .then(run('create table boards(id integer primary key autoincrement, title, body, owner)'))
-      .then(run('insert into users(name, password) values(\'admin\', \'admin\')'))
-      .then(run('insert into users(name, password) values(\'user1\', \'user1\')'))
-      .then(run('insert into users(name, password) values(\'user2\', \'user2\')'))
-      .then(run('insert into users(name, password) values(\'user3\', \'user3\')'));
+      .then(() => initializeUsers())
+      .then(() => initializeBoards());
   }
 
   run(sql) {
