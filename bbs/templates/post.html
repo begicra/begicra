@@ -53,7 +53,9 @@
         </tbody>
       </table>
       <div class="text-center">
+        <% if (row.owner === login.name) { %>
         <a href="./<%- row.id %>/edit" class="btn btn-default">編集</a>
+        <% } %>
         <a href="./" class="btn btn-default">一覧へ戻る</a>
       </div>
     </div>
