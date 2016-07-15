@@ -122,6 +122,30 @@ function bbs(db) {
         }));
       });
   });
+  router.get('/:id/edit', (req, res) => {
+    const id = req.params.id;
+
+    boardManager.getById(id)
+      .then(row => {
+        const file = fs.readFileSync(path.join(__dirname, 'templates/edit.html'), 'utf8');
+        const template = _.template(file);
+        res.send(template({
+          login: req.session.user,
+          row: row || {},
+        }));
+      });
+  });
+  router.post('/:id/edit', (req, res) => {
+    const post = {
+      id: req.body.id,
+      title: req.body.title,
+      body: req.body.body,
+      owner: req.body.owner,
+    };
+
+    boardManager.save(post)
+      .then(() => res.redirect(`../${post.id}`));
+  });
   router.post('/post', (req, res) => {
     const post = {
       title: req.body.title,

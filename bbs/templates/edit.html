@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>投稿: <%- row.title %></title>
+  <link href="/css/bootstrap.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <% if (login.isAdmin) { %>
+        <li><a href="../users">ユーザー一覧</a></li>
+        <% } %>
+        <li><a href="../logout">ログアウト</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav pull-right">
+        <li><a href="../../monitor" target="monitor" data-toggle="tooltip" title="アプリで実行される SQL 文がや結果をリアルタイムで見ることができます!">モニター</a></li>
+        <li><a class="bbs-show-hint" href="#" data-toggle="tooltip" title="攻略のヒントを表示します!">ヒント</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <header>
+      <h2>投稿: <%- row.title %></h2>
+    </header>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <form method="post" action="./edit">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th width="25%">タイトル</th>
+              <td><input type="text" name="title" class="form-control" value="<%- row.title %>"></td>
+            </tr>
+            <tr>
+              <th>本文</th>
+              <td>
+                <textarea name="body" class="form-control" rows="10"><%- row.body %></textarea>
+              </td>
+            </tr>
+            <tr>
+              <th>投稿者</th>
+              <td>
+                <%- row.owner %>
+                <input type="hidden" name="owner" value="<%- row.owner %>">
+              </td>
+            </tr>
+            <tr>
+              <th>投稿日時</th>
+              <td><%- row.posted %></td>
+            </tr>
+          </tbody>
+        </table>
+        <input type="hidden" name="id" value="<%- row.id %>">
+        <div class="text-center">
+          <button type="submit" class="btn btn-default">保存</button>
+          <a href="../<%- row.id %>" class="btn btn-default">キャンセル</a>
+          <a href="../" class="btn btn-default">一覧へ戻る</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/jquery-2.2.3.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

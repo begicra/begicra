@@ -26,7 +26,7 @@
 
   <div class="container">
     <header>
-      <h1>投稿: <%- row.title %></h1>
+      <h2>投稿: <%- row.title %></h2>
     </header>
   </div>
 
@@ -53,6 +53,7 @@
         </tbody>
       </table>
       <div class="text-center">
+        <a href="./<%- row.id %>/edit" class="btn btn-default">編集</a>
         <a href="./" class="btn btn-default">一覧へ戻る</a>
       </div>
     </div>
