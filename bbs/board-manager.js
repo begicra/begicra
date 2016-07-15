@@ -17,14 +17,18 @@ class BoardManager {
       .then(rows => _.first(rows));
   }
   add(post) {
-    const sql = 'insert into boards(title, body, owner)' +
-            ` values('${post.title}', '${post.body}',  '${post.owner}')`;
+    const sql = `
+insert into boards(title, body, owner, posted)
+values('${post.title}', '${post.body}',  '${post.owner}', datetime('now'))
+`
     return this.db.run(sql);
   }
   save(post) {
-    const sql = 'update boards' +
-            ` set title = '${post.title}', body = '${post.body}', owner = '${post.owner}'` +
-            ` where id = ${post.id}`;
+    const sql = `
+update boards
+set title = '${post.title}', body = '${post.body}', owner = '${post.owner}'
+where id = ${post.id}
+`;
     return this.db.run(sql);
   }
   remove(id) {

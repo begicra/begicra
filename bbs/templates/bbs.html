@@ -53,23 +53,24 @@
 
     <div class="row" id="bbsbox">
       <h2>一覧</h2>
-      <% for (const row of rows) { %>
       <table class="table table-bordered">
         <thead>
-          <tr>
-            <th width="70%">タイトル：<%- row.title %> </th>
-            <th class="postowner">投稿者：<%- row.owner %></th>
-          </tr>
+        <tr>
+          <th>タイトル</th>
+          <th>投稿者</th>
+          <th>投稿日時</th>
+        </tr>
         </thead>
         <tbody>
+        <% for (const row of rows) { %>
           <tr>
-            <td colspan="2">
-                <%- row.body %>
-            </td>
+            <td><a href="<%- row.id %>"><%- row.title %></a></td>
+            <td><%- row.owner %></td>
+            <td><%- row.posted %></td>
           </tr>
+        <% } %>
         </tbody>
       </table>
-      <% } %>
     </div>
   </div>
 
