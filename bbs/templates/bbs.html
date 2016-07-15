@@ -26,33 +26,11 @@
   </nav>
 
   <div class="container">
-    <div class="row" id="inputbox">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <div id="bbsentrybox">
-          <form action="./post" method="post">
-            <fieldset>
-              <div class="form-group">
-                <label for="inputTitle">タイトル</label>
-                <input type="text" id="inputTitle" name="title" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="inputBody">本文</label>
-                <textarea id="inputBody" name="body" class="form-control" rows="5"></textarea>
-              </div>
-              <div class="form-group text-center">
-                <input type="hidden" name="owner" value="<%- owner %>">
-                <button type="submit" class="btn btn-primary bbs-hint" data-placement="top" data-content="投稿すると一覧の下に投稿内容が表示されます。投稿したときのモニターの表示を見ながら色々試してみましょう!">投稿</button>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-      <div class="col-md-2"></div>
-    </div>
-
     <div class="row" id="bbsbox">
-      <h2>一覧</h2>
+      <h2>投稿</h2>
+      <div class="text-center">
+        <a href="./new" class="btn btn-default">新しく投稿する</a>
+      </div>
       <table class="table table-bordered">
         <thead>
         <tr>

@@ -109,6 +109,15 @@ function bbs(db) {
           }));
         });
     });
+  router
+    .get('/new', (req, res) => {
+      const file = fs.readFileSync(path.join(__dirname, 'templates/new.html'), 'utf8');
+      const template = _.template(file);
+      res.send(template({
+        login: req.session.user,
+        owner: req.session.user.name,
+      }));
+    });
   router.get('/:id', (req, res) => {
     const id = req.params.id;
 
