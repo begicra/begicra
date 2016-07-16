@@ -18,15 +18,15 @@ class BoardManager {
   }
   add(post) {
     const sql = `
-insert into boards(title, body, owner, posted)
-values('${post.title}', '${post.body}',  '${post.owner}', datetime('now'))
+insert into boards(title, body, draft, owner, posted)
+values('${post.title}', '${post.body}',  ${post.draft ? 1 : 0}, '${post.owner}', datetime('now'))
 `;
     return this.db.run(sql);
   }
   save(post) {
     const sql = `
 update boards
-set title = '${post.title}', body = '${post.body}', owner = '${post.owner}'
+set title = '${post.title}', body = '${post.body}', draft = ${post.draft ? 1 : 0}, owner = '${post.owner}'
 where id = ${post.id}
 `;
     return this.db.run(sql);

@@ -153,6 +153,7 @@ function bbs(db) {
       id: req.body.id,
       title: req.body.title,
       body: req.body.body,
+      draft: !!req.body.draft,
       owner: req.body.owner,
     };
 
@@ -169,6 +170,7 @@ function bbs(db) {
     const post = {
       title: req.body.title,
       body: req.body.body,
+      draft: !!req.body.draft,
       owner: req.body.owner,
     };
     boardManager.add(post)

@@ -22,12 +22,13 @@ class Database {
     function initializeBoards() {
       return Promise.resolve()
         .then(run(`
-create table boards(id integer primary key autoincrement, title, body, owner, posted)
+create table boards(id integer primary key autoincrement, title, body, draft, owner, posted)
 `))
         .then(run(`
-insert into boards(title, body, owner, posted)
+insert into boards(title, body, draft, owner, posted)
 values('テスト投稿', 'これはテスト投稿です。
 今日はいい天気',
+0,
 'admin',
 datetime('now'))
 `));
