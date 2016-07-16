@@ -18,7 +18,8 @@ function bbs(db) {
 
   function validateAuthentication(req, res, next) {
     if (!req.session.user) {
-      req.session.user = {};
+      const session = req.session;
+      session.user = {};
     }
 
     if (req.session.user.name) {
