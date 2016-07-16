@@ -13,63 +13,51 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="./">掲示板</a></li>
         <% if (login.isAdmin) { %>
-        <li ><a href="./users">ユーザ一覧</a></li>
+        <li ><a href="./users">ユーザー一覧</a></li>
         <% } %>
         <li><a href="./logout">ログアウト</a></li>
       </ul>
 
       <ul class="nav navbar-nav pull-right">
-        <li><a href="../monitor" target="monitor" data-toggle="tooltip" title="掲示板で実行される SQL 文や結果をリアルタイムで見ることができます!">モニタ</a></li>
+        <li><a href="../monitor" target="monitor" data-toggle="tooltip" title="掲示板で実行される SQL 文や結果をリアルタイムで見ることができます!">モニター</a></li>
         <li><a class="bbs-show-hint" href="#" data-toggle="tooltip" title="攻略のヒントを表示します!">ヒント</a></li>
       </ul>
     </div>
   </nav>
 
   <div class="container">
-    <div class="row" id="inputbox">
-      <div class="col-md-2"></div>
-      <div class="col-md-8">
-        <div id="bbsentrybox">
-          <form action="./post" method="post">
-            <fieldset>
-              <div class="form-group">
-                <label for="inputTitle">タイトル</label>
-                <input type="text" id="inputTitle" name="title" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="inputBody">本文</label>
-                <textarea id="inputBody" name="body" class="form-control" rows="5"></textarea>
-              </div>
-              <div class="form-group text-center">
-                <input type="hidden" name="owner" value="<%- owner %>">
-                <button type="submit" class="btn btn-primary bbs-hint" data-placement="top" data-content="投稿すると一覧の下に投稿内容が表示されます。投稿したときのモニタの表示を見ながら色々試してみましょう!">投稿</button>
-              </div>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-      <div class="col-md-2"></div>
-    </div>
-
     <div class="row" id="bbsbox">
-      <h2>一覧</h2>
-      <% for (const row of rows) { %>
+      <h2>投稿</h2>
+      <div class="text-center">
+        <a href="./new" class="btn btn-default">新しく投稿する</a>
+      </div>
+
+      <div>
+        <ul class="nav nav-tabs">
+          <li role="presentation"<%- page === 'bbs' ? 'class=active' : '' %>><a href="./">投稿</a></li>
+          <li role="presentation"<%- page === 'drafts' ? 'class=active' : '' %>><a href="drafts">下書き</a></li>
+        </ul>
+      </div>
+
+      </div>
       <table class="table table-bordered">
         <thead>
-          <tr>
-            <th width="70%">タイトル：<%- row.title %> </th>
-            <th class="postowner">投稿者：<%- row.owner %></th>
-          </tr>
+        <tr>
+          <th>タイトル</th>
+          <th>投稿者</th>
+          <th>投稿日時</th>
+        </tr>
         </thead>
         <tbody>
+        <% for (const row of rows) { %>
           <tr>
-            <td colspan="2">
-                <%- row.body %>
-            </td>
+            <td><a href="<%- row.id %>"><%- row.title %></a></td>
+            <td><%- row.owner %></td>
+            <td><%- row.posted %></td>
           </tr>
+        <% } %>
         </tbody>
       </table>
-      <% } %>
     </div>
   </div>
 
