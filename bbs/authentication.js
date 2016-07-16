@@ -11,6 +11,7 @@ class Authentication {
         if (rows.length <= 0) {
           throw new Error('Login ID または Password が異なります');
         }
+        return rows[0];
       });
   }
 }

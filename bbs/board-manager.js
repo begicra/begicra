@@ -8,7 +8,23 @@ class BoardManager {
   }
 
   getAll() {
-    const sql = 'select * from boards';
+    const sql = 'select * from boards order by posted desc';
+    return this.db.each(sql);
+  }
+  getBoards() {
+    const sql = `
+select * from boards
+where draft = 0
+order by posted desc
+`;
+    return this.db.each(sql);
+  }
+  getDrafts(owner) {
+    const sql = `
+select * from boards
+where draft != 0 and owner = '${owner}'
+order by posted desc
+`;
     return this.db.each(sql);
   }
   getById(id) {
@@ -17,14 +33,21 @@ class BoardManager {
       .then(rows => _.first(rows));
   }
   add(post) {
-    const sql = 'insert into boards(title, body, owner)' +
-            ` values('${post.title}', '${post.body}',  '${post.owner}')`;
+    const sql = `
+insert into boards(title, body, draft, owner, posted)
+values('${post.title}', '${post.body}',  ${post.draft ? 1 : 0}, '${post.owner}', datetime('now'))
+`;
     return this.db.run(sql);
   }
   save(post) {
-    const sql = 'update boards' +
-            ` set title = '${post.title}', body = '${post.body}', owner = '${post.owner}'` +
-            ` where id = ${post.id}`;
+    const sql = `
+update boards set
+  title = '${post.title}',
+  body = '${post.body}',
+  draft = ${post.draft ? 1 : 0},
+  owner = '${post.owner}'
+where id = ${post.id}
+`;
     return this.db.run(sql);
   }
   remove(id) {

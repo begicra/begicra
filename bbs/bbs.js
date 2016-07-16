@@ -17,7 +17,12 @@ function bbs(db) {
   const userManager = new UserManager(db);
 
   function validateAuthentication(req, res, next) {
-    if (req.session.user && req.session.user.name) {
+    if (!req.session.user) {
+      const session = req.session;
+      session.user = {};
+    }
+
+    if (req.session.user.name) {
       next();
     } else {
       res.redirect(path.join(req.baseUrl, 'login'));
@@ -57,11 +62,11 @@ function bbs(db) {
 
       // ユーザー名とパスワードを確認
       authentication.validate(input.loginId, input.password)
-        .then(() => {
+        .then(row => {
           const session = req.session;
           session.user = {
-            name: input.loginId,
-            isAdmin: input.loginId === 'admin',
+            name: row.name,
+            isAdmin: row.name === 'admin',
           };
 
           res.redirect('./');
@@ -86,7 +91,7 @@ function bbs(db) {
   router.use('/', express.static(path.join(__dirname, 'static')));
 
   // 会員リスト
-  router.get('/users', (req, res) => {
+  router.get('/users', validateAuthentication, (req, res) => {
     userManager.getAll()
       .then(users => {
         const file = fs.readFileSync(path.join(__dirname, 'templates/users.html'), 'utf8');
@@ -98,18 +103,43 @@ function bbs(db) {
   // 掲示板
   router
     .get('/', validateAuthentication, (req, res) => {
-      boardManager.getAll()
+      boardManager.getBoards()
         .then(rows => {
           const file = fs.readFileSync(path.join(__dirname, 'templates/bbs.html'), 'utf8');
           const template = _.template(file);
           res.send(template({
+            page: 'bbs',
             login: req.session.user,
             owner: req.session.user.name,
             rows,
           }));
         });
     });
-  router.get('/:id', (req, res) => {
+  // 下書き
+  router
+    .get('/drafts', validateAuthentication, (req, res) => {
+      boardManager.getDrafts(req.session.user && req.session.user.name)
+        .then(rows => {
+          const file = fs.readFileSync(path.join(__dirname, 'templates/bbs.html'), 'utf8');
+          const template = _.template(file);
+          res.send(template({
+            page: 'drafts',
+            login: req.session.user,
+            owner: req.session.user.name,
+            rows,
+          }));
+        });
+    });
+  router
+    .get('/new', validateAuthentication, (req, res) => {
+      const file = fs.readFileSync(path.join(__dirname, 'templates/new.html'), 'utf8');
+      const template = _.template(file);
+      res.send(template({
+        login: req.session.user,
+        owner: req.session.user.name,
+      }));
+    });
+  router.get('/:id', validateAuthentication, (req, res) => {
     const id = req.params.id;
 
     boardManager.getById(id)
@@ -122,10 +152,42 @@ function bbs(db) {
         }));
       });
   });
-  router.post('/post', (req, res) => {
+  router.get('/:id/edit', validateAuthentication, (req, res) => {
+    const id = req.params.id;
+
+    boardManager.getById(id)
+      .then(row => {
+        const file = fs.readFileSync(path.join(__dirname, 'templates/edit.html'), 'utf8');
+        const template = _.template(file);
+        res.send(template({
+          login: req.session.user,
+          row: row || {},
+        }));
+      });
+  });
+  router.post('/:id/edit', validateAuthentication, (req, res) => {
+    const post = {
+      id: req.body.id,
+      title: req.body.title,
+      body: req.body.body,
+      draft: !!req.body.draft,
+      owner: req.body.owner,
+    };
+
+    boardManager.save(post)
+      .then(() => res.redirect(`../${post.id}`));
+  });
+  router.get('/:id/delete', validateAuthentication, (req, res) => {
+    const id = req.params.id;
+
+    boardManager.remove(id)
+      .then(() => res.redirect('../'));
+  });
+  router.post('/post', validateAuthentication, (req, res) => {
     const post = {
       title: req.body.title,
       body: req.body.body,
+      draft: !!req.body.draft,
       owner: req.body.owner,
     };
     boardManager.add(post)
