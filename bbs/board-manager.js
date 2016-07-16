@@ -20,7 +20,7 @@ class BoardManager {
     const sql = `
 insert into boards(title, body, owner, posted)
 values('${post.title}', '${post.body}',  '${post.owner}', datetime('now'))
-`
+`;
     return this.db.run(sql);
   }
   save(post) {
