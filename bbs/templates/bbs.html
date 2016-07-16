@@ -31,6 +31,15 @@
       <div class="text-center">
         <a href="./new" class="btn btn-default">新しく投稿する</a>
       </div>
+
+      <div>
+        <ul class="nav nav-tabs">
+          <li role="presentation"<%- page === 'bbs' ? 'class=active' : '' %>><a href="./">投稿</a></li>
+          <li role="presentation"<%- page === 'drafts' ? 'class=active' : '' %>><a href="drafts">下書き</a></li>
+        </ul>
+      </div>
+
+      </div>
       <table class="table table-bordered">
         <thead>
         <tr>

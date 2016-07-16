@@ -11,6 +11,22 @@ class BoardManager {
     const sql = 'select * from boards order by posted desc';
     return this.db.each(sql);
   }
+  getBoards() {
+    const sql = `
+select * from boards
+where draft = 0
+order by posted desc
+`;
+    return this.db.each(sql);
+  }
+  getDrafts(owner) {
+    const sql = `
+select * from boards
+where draft != 0 and owner = '${owner}'
+order by posted desc
+`;
+    return this.db.each(sql);
+  }
   getById(id) {
     const sql = `select * from boards where id = ${id}`;
     return this.db.each(sql)

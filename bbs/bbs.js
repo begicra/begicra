@@ -102,11 +102,27 @@ function bbs(db) {
   // 掲示板
   router
     .get('/', validateAuthentication, (req, res) => {
-      boardManager.getAll()
+      boardManager.getBoards()
         .then(rows => {
           const file = fs.readFileSync(path.join(__dirname, 'templates/bbs.html'), 'utf8');
           const template = _.template(file);
           res.send(template({
+            page: 'bbs',
+            login: req.session.user,
+            owner: req.session.user.name,
+            rows,
+          }));
+        });
+    });
+  // 下書き
+  router
+    .get('/drafts', validateAuthentication, (req, res) => {
+      boardManager.getDrafts(req.session.user && req.session.user.name)
+        .then(rows => {
+          const file = fs.readFileSync(path.join(__dirname, 'templates/bbs.html'), 'utf8');
+          const template = _.template(file);
+          res.send(template({
+            page: 'drafts',
             login: req.session.user,
             owner: req.session.user.name,
             rows,
