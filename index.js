@@ -43,9 +43,8 @@ app.use(/\/app\/[a-zA-Z0-9]+\/bbs/, virtual(pathname => {
   const db = environment.getDatabase(environment.getId(pathname));
   return bbs(db);
 }));
-app.use(/\/app\/[a-zA-Z0-9]+\/monitor/, virtual(pathname => {
-  return environment.getMonitor(environment.getId(pathname));
-}));
+app.use(/\/app\/[a-zA-Z0-9]+\/monitor/,
+  virtual(pathname => environment.getMonitor(environment.getId(pathname))));
 
 // ダッシュボード
 app.use('/', dashboard);

@@ -62,11 +62,11 @@ function bbs(db) {
 
       // ユーザー名とパスワードを確認
       authentication.validate(input.loginId, input.password)
-        .then(() => {
+        .then(row => {
           const session = req.session;
           session.user = {
-            name: input.loginId,
-            isAdmin: input.loginId === 'admin',
+            name: row.name,
+            isAdmin: row.name === 'admin',
           };
 
           res.redirect('./');
