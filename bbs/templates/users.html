@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ユーザー一覧</title>
+  <title>ユーザ一覧</title>
   <link href="/css/bootstrap.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
   <link href="css/style.css" rel="stylesheet">
@@ -13,20 +13,20 @@
       <ul class="nav navbar-nav">
         <li><a href="./">掲示板</a></li>
         <% if (login.isAdmin) { %>
-        <li class="active bbs-hint" data-placement="bottom" data-content="管理者じゃなくてもユーザー一覧が見れるかも?"><a href="./users">ユーザー一覧</a></li>
+        <li class="active bbs-hint" data-placement="bottom" data-content="管理者じゃなくてもユーザ一覧が見れるかも?"><a href="./users">ユーザ一覧</a></li>
         <% } %>
         <li><a href="./logout">ログアウト</a></li>
       </ul>
 
       <ul class="nav navbar-nav pull-right">
-        <li><a href="../monitor" target="monitor" data-toggle="tooltip" title="掲示板で実行される SQL 文や結果をリアルタイムで見ることができます!">モニター</a></li>
+        <li><a href="../monitor" target="monitor" data-toggle="tooltip" title="掲示板で実行される SQL 文や結果をリアルタイムで見ることができます!">モニタ</a></li>
         <li><a class="bbs-show-hint" href="#" data-toggle="tooltip" title="攻略のヒントを表示します!">ヒント</a></li>
       </ul>
     </div>
   </nav>
 
   <div class="container">
-    <h2>ユーザー一覧</h2>
+    <h2>ユーザ一覧</h2>
     <table class="table">
       <thead>
         <tr>
