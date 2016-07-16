@@ -25,8 +25,11 @@ values('${post.title}', '${post.body}',  ${post.draft ? 1 : 0}, '${post.owner}',
   }
   save(post) {
     const sql = `
-update boards
-set title = '${post.title}', body = '${post.body}', draft = ${post.draft ? 1 : 0}, owner = '${post.owner}'
+update boards set
+  title = '${post.title}',
+  body = '${post.body}',
+  draft = ${post.draft ? 1 : 0},
+  owner = '${post.owner}'
 where id = ${post.id}
 `;
     return this.db.run(sql);
