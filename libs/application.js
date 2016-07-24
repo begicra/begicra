@@ -1,5 +1,6 @@
 'use strict';
 
+const debug = require('debug')('express:application');
 const Database = require('../database/database');
 const LoggingDatabase = require('../database/logging-database');
 const monitor = require('../monitor/monitor');
@@ -9,6 +10,8 @@ const applications = {};
 
 class Application {
   constructor(id) {
+    debug(`create new application [${id}]`);
+
     const mon = monitor();
     const database = new LoggingDatabase(new Database());
     database.setInterceptor(mon.interceptor);
@@ -33,6 +36,15 @@ class Application {
 
   get monitor() {
     return this.private.monitor;
+  }
+
+  shutdown() {
+    debug(`shutdown application [${this.id}]`);
+
+    const database = this.private.database;
+    applications[this.id] = null;
+    this.private = null;
+    database.shutdown();
   }
 
   static get(id) {

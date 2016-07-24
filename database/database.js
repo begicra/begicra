@@ -69,6 +69,11 @@ datetime('now'))
       });
     });
   }
+
+  shutdown() {
+    this.db.close();
+    this.db = null;
+  }
 }
 
 module.exports = Database;

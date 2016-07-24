@@ -58,6 +58,13 @@ class LoggingDatabase {
       error: JSON.stringify(error),
     });
   }
+
+  shutdown() {
+    this.interceptor = null;
+    this.database.shutdown();
+
+    this.database = null;
+  }
 }
 
 module.exports = LoggingDatabase;

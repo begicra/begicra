@@ -1,6 +1,6 @@
 const express = require('express');
 const virtual = require('./libs/virtual-middleware');
-const Application = require('./libs/application');
+const Application = require('./libs/time-application');
 
 const app = express();
 require('express-ws')(app);
