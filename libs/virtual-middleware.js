@@ -1,10 +1,7 @@
 'use strict';
 
-const middlewares = {};
-
 module.exports = factory => (req, res, next) => {
-  const id = req.baseUrl;
-
-  const middleware = middlewares[id] = middlewares[id] || factory(id);
+  const pathname = req.baseUrl;
+  const middleware = factory(pathname);
   middleware(req, res, next);
 };
