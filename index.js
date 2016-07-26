@@ -1,7 +1,7 @@
 const express = require('express');
 const virtual = require('./libs/virtual-middleware');
 const Application = require('./libs/time-application');
-const StatusticsPusher = require('./libs/statustics-pusher');
+const StatisticsPusher = require('./libs/statistics-pusher');
 const CronJob = require('cron').CronJob;
 
 const app = express();
@@ -20,7 +20,7 @@ app.use('/', dashboard);
 
 app.listen(3000);
 
-const pusher = StatusticsPusher.create(Application);
+const pusher = StatisticsPusher.create(Application);
 if (pusher) {
   const job = new CronJob({
     cronTime: '*/5 * * * *',

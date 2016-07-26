@@ -1,9 +1,9 @@
 'use strict';
 
 const Milkcocoa = require('milkcocoa');
-const StatusticsManager = require('./statustics-manager');
+const StatisticsManager = require('./statistics-manager');
 
-class StatusticsPusher {
+class StatisticsPusher {
   constructor(dataStore, manager) {
     this.private = { manager, dataStore };
   }
@@ -23,12 +23,12 @@ class StatusticsPusher {
       return undefined;
     }
 
-    const manager = new StatusticsManager(process.pid, Application);
+    const manager = new StatisticsManager(process.pid, Application);
     const milkcocoa = new Milkcocoa(milkcocoaApp);
     const dataStore = milkcocoa.dataStore(dataStoreName);
 
-    return new StatusticsPusher(dataStore, manager);
+    return new StatisticsPusher(dataStore, manager);
   }
 }
 
-module.exports = StatusticsPusher;
+module.exports = StatisticsPusher;

@@ -3,7 +3,7 @@
 const os = require('os');
 const usage = require('usage');
 
-class StatusticsManager {
+class StatisticsManager {
   constructor(pid, Application) {
     this.private = { pid, Application };
   }
@@ -56,4 +56,4 @@ class StatusticsManager {
   }
 }
 
-module.exports = StatusticsManager;
+module.exports = StatisticsManager;
