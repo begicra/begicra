@@ -21,14 +21,14 @@ app.use('/', dashboard);
 app.listen(3000);
 
 const pusher = StatisticsPusher.create(Application);
-if (pusher) {
-  const job = new CronJob({
-    cronTime: '*/5 * * * *',
-    onTick: () => {
+const job = new CronJob({
+  cronTime: '*/5 * * * *',
+  onTick: () => {
+    if (pusher) {
       pusher.push();
-      Application.erase();
-    },
-    start: false,
-  });
-  job.start();
-}
+    }
+    Application.erase();
+  },
+  start: false,
+});
+job.start();

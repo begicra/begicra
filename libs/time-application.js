@@ -7,7 +7,7 @@ const applications = {};
 
 class TimeApplication {
   constructor(id) {
-    const application = new Application(id);
+    const application = Application.get(id);
 
     this.private = {
       application,
