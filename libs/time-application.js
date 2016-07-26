@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('underscore');
 const Application = require('./application');
 
 const applications = {};
@@ -8,11 +9,12 @@ class TimeApplication {
   constructor(id) {
     const application = new Application(id);
 
-    setTimeout(() => this.shutdown(), 1000 * 60 * 60 * 24 * 3);
-
     this.private = {
       application,
-      bbs: (req, res, next) => application.bbs(req, res, next),
+      bbs: (req, res, next) => {
+        this.private.lastAccess = new Date().getTime();
+        application.bbs(req, res, next);
+      },
     };
   }
 
@@ -26,6 +28,10 @@ class TimeApplication {
 
   get monitor() {
     return this.private.application.monitor;
+  }
+
+  get elapsedLastAccess() {
+    return new Date().getTime() - this.private.lastAccess;
   }
 
   shutdown() {
@@ -51,6 +57,13 @@ class TimeApplication {
 
   static get count() {
     return Application.count;
+  }
+
+  static erase() {
+    const available = _.values(applications)
+      .filter(app => !!app)
+      .filter(app => app.elapsedLastAccess >= 1000 * 60 * 60 * 24 * 3);
+    available.forEach(app => app.shutdown());
   }
 }
 

@@ -24,7 +24,10 @@ const pusher = StatusticsPusher.create(Application);
 if (pusher) {
   const job = new CronJob({
     cronTime: '*/5 * * * *',
-    onTick: () => pusher.push(),
+    onTick: () => {
+      pusher.push();
+      Application.erase();
+    },
     start: false,
   });
   job.start();
