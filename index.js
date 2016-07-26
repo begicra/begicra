@@ -2,6 +2,7 @@ const express = require('express');
 const virtual = require('./libs/virtual-middleware');
 const Application = require('./libs/time-application');
 const StatusticsPusher = require('./libs/statustics-pusher');
+const CronJob = require('cron').CronJob;
 
 const app = express();
 require('express-ws')(app);
@@ -21,5 +22,10 @@ app.listen(3000);
 
 const pusher = StatusticsPusher.create(Application);
 if (pusher) {
-  setInterval(() => pusher.push(), 1000 * 60 * 5); // 5min
+  const job = new CronJob({
+    cronTime: '*/5 * * * *',
+    onTick: () => pusher.push(),
+    start: false,
+  });
+  job.start();
 }

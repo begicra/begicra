@@ -28,6 +28,7 @@
     "underscore": "^1.8.3"
   },
   "dependencies": {
+    "cron": "^1.1.0",
     "debug": "^2.2.0",
     "express-ws": "^2.0.0-rc.1",
     "milkcocoa": "^0.6.0",
