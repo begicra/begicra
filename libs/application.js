@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('underscore');
 const debug = require('debug')('express:application');
 const Database = require('../database/database');
 const LoggingDatabase = require('../database/logging-database');
@@ -58,6 +59,10 @@ class Application {
 
   static getId(pathname) {
     return pathname.replace(/^\/app\/([a-zA-Z0-9]+)\/[a-z]+/, '$1');
+  }
+
+  static get count() {
+    return _.values(applications).filter(app => !!app).length;
   }
 }
 

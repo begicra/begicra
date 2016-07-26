@@ -37,7 +37,6 @@ class TimeApplication {
   }
 
   static get(id) {
-    console.log(applications);
     const app = applications[id] = applications[id] || new TimeApplication(id);
     return app;
   }
@@ -48,6 +47,10 @@ class TimeApplication {
 
   static getId(pathname) {
     return Application.getId(pathname);
+  }
+
+  static get count() {
+    return Application.count;
   }
 }
 
