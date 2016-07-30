@@ -1,15 +1,20 @@
-# kビギクラ!
+# ビギクラ!
 ## 実行方法
-```
-$ git clone ...
-$ cd cracker
-$ npm install
-$ npm start
-```
+### サービスを利用する
+ビギクラ! は Arukas (beta) を利用したサービスを提供しています。
 
-http://localhost:3000/bbs を起動してください。
+https://begicra.arukascloud.io/
 
-* Node.js 6 が必要です
+にアクセスしてください。
+
+
+### Docker Image を利用する
+Docker Image を用意しています。masakura/begicra から最新のタグを取得して実行してください。
+
+https://hub.docker.com/r/masakura/begicra/
+
+
+## 掲示板で登録済みのユーザー
 * [初期ユーザー](https://github.com/masakura/cracker/blob/master/bbs/database.js)
   - admin/admin
   - user1/user1
