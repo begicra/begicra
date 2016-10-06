@@ -1,6 +1,7 @@
 'use strict';
 
 class Authentication {
+  // fix
   constructor(db) {
     this.db = db;
   }
